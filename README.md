@@ -1,6 +1,6 @@
 # AADReportingAPI
 
-These Powershell scripts can be used to download Azure AD Audit and Signin logs via the Graph API.  They have better error\throttling handling so can be used when you are trying to download a large amount of logs.
+These Powershell scripts can be used to download Azure AD Audit and Signin logs via the Graph API.  They have better error\throttling handling so can be used when you are trying to download a large amount of logs and the AAD portal or AAD Powershell module return throttling or limited logs.
 
 ## Prerequisites
 1. You must first install the Azure PowerShell module via PowerShell cmdlet Install-Module Azure

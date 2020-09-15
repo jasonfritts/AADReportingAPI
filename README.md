@@ -2,8 +2,9 @@
 
 These Powershell scripts can be used to download Azure AD Audit and Signin logs via the Graph API.  They have better error\throttling handling so can be used when you are trying to download a large amount of logs.
 
-## Pre-requisites
-You must first install the Azure PowerShell module via Install-Module Azure
+## Prerequisites
+1. You must first install the Azure PowerShell module via PowerShell cmdlet Install-Module Azure
+2. Verify it is installed by running cmd Import-Module Azure
 
 For using application credentials instead of user credentials, you must additionally
 1. Register an Azure AD Application - https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app

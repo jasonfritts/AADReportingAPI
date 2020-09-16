@@ -1,6 +1,12 @@
+
+
 # AADReportingAPI
 
 These Powershell scripts can be used to download Azure AD Audit and Signin logs via the Graph API.  They have better error\throttling handling so can be used when you are trying to download a large amount of logs and the AAD portal or AAD Powershell module return throttling or limited logs.
+
+  * [Prerequisites](#prerequisites)
+  * [Download logs manually using user credentials](#download-logs-manually-using-user-credentials)
+  * [Download logs using AAD application credentials](#download-logs-using-aad-application-credentials)
 
 ## Prerequisites
 1. You must first install the Azure PowerShell module - https://docs.microsoft.com/en-us/powershell/azure/servicemanagement/install-azure-ps?view=azuresmps-4.0.0
@@ -32,7 +38,7 @@ If you need to configure this script to be run in automated fashion, you can use
 
 After downloading the scripts locally, you will need to edit line 8 to reference your tenantID  example $tenantID = "mytenant.onmicrosoft.com".
 
-You will also need to edit line 27 and 28 to reference your clientID and clientSecret created in the Prerequisites section of this Readme document.
+You will also need to edit line 27 and 28 to reference your clientID and clientSecret created in the [Prerequisites](#prerequisites) section of this Readme document.
 
 Next if you want to download more than 7 days worth of logs, edit line line 12 for the number of days you need to download.  Example : $fromDate = "{0:s}" -f (get-date).AddDays(-31).ToUniversalTime() + "Z"
 

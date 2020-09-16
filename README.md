@@ -9,12 +9,12 @@ These Powershell scripts can be used to download Azure AD Audit and Signin logs 
   * [Download logs using AAD application credentials](#download-logs-using-aad-application-credentials)
 
 ## Prerequisites
-1. You must first install the Azure PowerShell module - https://docs.microsoft.com/en-us/powershell/azure/servicemanagement/install-azure-ps?view=azuresmps-4.0.0
+1. You must first install the [Azure PowerShell module](https://docs.microsoft.com/en-us/powershell/azure/servicemanagement/install-azure-ps?view=azuresmps-4.0.0)
 2. Verify it is installed by running cmd Import-Module Azure
 
 For using AAD application credentials instead of user credentials, you must additionally
-1. Register an Azure AD Application - https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
-2. Create a client secret for this Azure AD application - https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret
+1. [Register an Azure AD Application](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
+2. [Create a client secret for this Azure AD application](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)
 3. Grant this Azure AD application API permissions for the following APIs:
 
     Windows Azure Active Directory (Microsoft.Azure.ActiveDirectory) = Read Directory Data <br>
@@ -24,7 +24,7 @@ For using AAD application credentials instead of user credentials, you must addi
 
 ## Download logs manually using user credentials
 
-If you only need to download AAD audit or sign in logs one time, you can use either [MSGraphAuditsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphAuditsDownload.ps1) or [MSGraphSignInsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSignInsDownload.ps1).
+If you only need to download AAD audit or sign in logs one time and want to authenticate via user credentials, you can use either [MSGraphAuditsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphAuditsDownload.ps1) or [MSGraphSignInsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSignInsDownload.ps1).
 
 First download one of these scripts, and edit the line #8 to reference your tenantID  example $tenantID = "mytenant.onmicrosoft.com".
 

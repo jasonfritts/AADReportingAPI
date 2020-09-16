@@ -24,7 +24,7 @@ For using AAD application credentials instead of user credentials, you must addi
 
 ## Download logs manually using user credentials
 
-If you only need to download AAD audit or sign in logs one time, you can use either MSGraphAuditsDownload.ps1 or MSGraphSignInsDownload.ps1.
+If you only need to download AAD audit or sign in logs one time, you can use either [MSGraphAuditsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphAuditsDownload.ps1) or [MSGraphSignInsDownload.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSignInsDownload.ps1).
 
 First download one of these scripts, and edit the line #8 to reference your tenantID  example $tenantID = "mytenant.onmicrosoft.com".
 
@@ -34,7 +34,7 @@ Finally save and run this script, you should receive a login prompt and you will
 
 ## Download logs using AAD application credentials
 
-If you need to configure this script to be run in automated fashion, you can use either MSGraphAuditsDownloadWithClientApp.ps1 or MSGraphSignDownloadWithClientApp.ps1 depending on the type of logs you need to download.
+If you need to configure this script to be run in automated fashion, you can use either [MSGraphAuditsDownloadWithClientApp.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphAuditsDownloadWithClientApp.ps1) or [MSGraphSignDownloadWithClientApp.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSignDownloadWithClientApp.ps1) depending on the type of logs you need to download.
 
 After downloading the scripts locally, you will need to edit line 8 to reference your tenantID  example $tenantID = "mytenant.onmicrosoft.com".
 

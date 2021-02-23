@@ -113,7 +113,7 @@ Do {
         elseif($statusCode -eq 429)
         {
             # throttled request, wait for a few seconds and retry
-            Start-Sleep -5
+            Start-Sleep -s 5
         }
         elseif($statusCode -eq 403 -or $statusCode -eq 400 -or $statusCode -eq 401)
         {

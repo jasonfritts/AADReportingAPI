@@ -1,4 +1,6 @@
-﻿$tId = "12345678-5ead-468c-a6ae-048e103d57f0"  # Add tenant ID from Azure Active Directory page on portal.
+# NOTE: First install MSGraph PowerShell module See: https://docs.microsoft.com/en-us/graph/powershell/installation﻿
+
+$tId = "12345678-5ead-468c-a6ae-048e103d57f0"  # Add tenant ID from Azure Active Directory page on portal.
 $agoDays = 7  # Will filter the log for $agoDays from the current date and time. 
 $startDate = (Get-Date).AddDays(-($agoDays)).ToString('yyyy-MM-dd')  # Get filter start date.
 $pathForExport = "./"  # The path to the local filesystem for export of the CSV file.

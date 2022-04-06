@@ -32,6 +32,9 @@ Next if you want to download more than 7 days worth of logs, edit line line 12 f
 
 Finally save and run this script, you should receive a login prompt and you will need to login with an Azure AD user who has permisisons to access logs.
 
+<font color="green">**UPDATE:**</font>
+A new script using the latest [Microsoft Graph SDK PowerShell module](https://docs.microsoft.com/en-us/powershell/microsoftgraph/overview?view=graph-powershell-beta) can also be used.  See example at [MSGraphSDK_ExportLogs.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSDK_ExportLogs.ps1)
+
 ## Download logs using AAD application credentials
 
 If you need to configure this script to be run in automated fashion, you can use either [MSGraphAuditsDownloadWithClientApp.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphAuditsDownloadWithClientApp.ps1) or [MSGraphSignDownloadWithClientApp.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSignDownloadWithClientApp.ps1) depending on the type of logs you need to download.

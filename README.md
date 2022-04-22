@@ -1,4 +1,5 @@
-
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `NOTE:`
+A new script using the latest [Microsoft Graph SDK PowerShell module](https://docs.microsoft.com/en-us/powershell/microsoftgraph/overview?view=graph-powershell-beta) can also be used instead of below AADReportingAPI.  See example at [MSGraphSDK_ExportLogs.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSDK_ExportLogs.ps1) this module has built in Throttling retry handling as per [How is API throttling handled in the Powershell Graph functions](https://github.com/microsoftgraph/msgraph-sdk-powershell/issues/281) MSGraph SDK will perform a max of 3 retries when throttling is encountered.
 
 # AADReportingAPI
 
@@ -31,9 +32,6 @@ First download one of these scripts, and edit the line #8 to reference your tena
 Next if you want to download more than 7 days worth of logs, edit line line 12 for the number of days you need to download.  Example : $fromDate = "{0:s}" -f (get-date).AddDays(-31).ToUniversalTime() + "Z"
 
 Finally save and run this script, you should receive a login prompt and you will need to login with an Azure AD user who has permisisons to access logs.
-
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `NOTE:`
-A new script using the latest [Microsoft Graph SDK PowerShell module](https://docs.microsoft.com/en-us/powershell/microsoftgraph/overview?view=graph-powershell-beta) can also be used.  See example at [MSGraphSDK_ExportLogs.ps1](https://github.com/jasonfritts/AADReportingAPI/blob/master/MSGraphSDK_ExportLogs.ps1)
 
 ## Download logs using AAD application credentials
 

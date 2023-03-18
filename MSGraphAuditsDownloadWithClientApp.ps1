@@ -31,33 +31,68 @@ $clientSecret   = ""     # Should be a ~44 character string insert your info her
 ###################################
 #### DO NOT MODIFY BELOW LINES ####
 ###################################
-Function Expand-Collections {
-    [cmdletbinding()]
+Function ConvertTo-FlatObject {
+    [CmdletBinding()]
     Param (
-        [parameter(ValueFromPipeline)]
-        [psobject]$MSGraphObject
+        [Parameter(ValueFromPipeLine)][Object[]]$Objects,
+        [String]$Separator = ".",
+        [ValidateSet("", 0, 1)]$Base = 1,
+        [int]$Depth = 5,
+        [Parameter(DontShow)][String[]]$Path,
+        [Parameter(DontShow)][System.Collections.IDictionary] $OutputObject
     )
     Begin {
-        $IsSchemaObtained = $False
+        $InputObjects = [System.Collections.Generic.List[Object]]::new()
     }
     Process {
-        If (!$IsSchemaObtained) {
-            $OutputOrder = $MSGraphObject.psobject.properties.name
-            $IsSchemaObtained = $True
+        foreach ($O in $Objects) {
+            $InputObjects.Add($O)
         }
-
-    $MSGraphObject | ForEach-Object {
-        $singleGraphObject = $_
-        $ExpandedObject = New-Object -TypeName PSObject
-
-        $OutputOrder | ForEach-Object {
-            Add-Member -InputObject $ExpandedObject -MemberType NoteProperty -Name $_ -Value $(($singleGraphObject.$($_) | Out-String).Trim())
+    }
+    End {
+        If ($PSBoundParameters.ContainsKey("OutputObject")) {
+            $Object = $InputObjects[0]
+            $Iterate = [ordered] @{}
+            if ($null -eq $Object) {
+                #Write-Verbose -Message "ConvertTo-FlatObject - Object is null"
+            } elseif ($Object.GetType().Name -in 'String', 'DateTime', 'TimeSpan', 'Version', 'Enum') {
+                $Object = $Object.ToString()
+            } elseif ($Depth) {
+                $Depth--
+                If ($Object -is [System.Collections.IDictionary]) {
+                    $Iterate = $Object
+                } elseif ($Object -is [Array] -or $Object -is [System.Collections.IEnumerable]) {
+                    $i = $Base
+                    foreach ($Item in $Object.GetEnumerator()) {
+                        $Iterate["$i"] = $Item
+                        $i += 1
+                    }
+                } else {
+                    foreach ($Prop in $Object.PSObject.Properties) {
+                        if ($Prop.IsGettable) {
+                            $Iterate["$($Prop.Name)"] = $Object.$($Prop.Name)
+                        }
+                    }
+                }
+            }
+            If ($Iterate.Keys.Count) {
+                foreach ($Key in $Iterate.Keys) {
+                    ConvertTo-FlatObject -Objects @(, $Iterate["$Key"]) -Separator $Separator -Base $Base -Depth $Depth -Path ($Path + $Key) -OutputObject $OutputObject
+                }
+            } else {
+                $Property = $Path -Join $Separator
+                $OutputObject[$Property] = $Object
+            }
+        } elseif ($InputObjects.Count -gt 0) {
+            foreach ($ItemObject in $InputObjects) {
+                $OutputObject = [ordered]@{}
+                ConvertTo-FlatObject -Objects @(, $ItemObject) -Separator $Separator -Base $Base -Depth $Depth -Path $Path -OutputObject $OutputObject
+                [PSCustomObject] $OutputObject
+            }
         }
-        $ExpandedObject
     }
-    }
-    End {}
 }
+
 Function Get-AppToken($tenantId, $clientId, $clientSecret)
 {
 	$loginURL       = "https://login.windows.net"
@@ -97,7 +132,7 @@ Do {
     Try {
         $myReport = (Invoke-WebRequest -UseBasicParsing -Headers $headers -Uri $url)
         $convertedReport = ($myReport.Content | ConvertFrom-Json).value
-        $convertedReport | Expand-Collections | ConvertTo-Csv -NoTypeInformation | Add-Content $outputFile
+	$convertedReport | ConvertTo-FlatObject | ConvertTo-Csv -NoTypeInformation | Add-Content $outputFile
         $url = ($myReport.Content | ConvertFrom-Json).'@odata.nextLink'
         $count = $count+$convertedReport.Count
         Write-Output "Total Fetched: $count"
